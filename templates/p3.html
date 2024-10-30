@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='cart.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='wassim.css') }}">
+    <title>Product Page - Casual pant</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="floating-cart">
+        <span class="cart-icon">
+            <a href="/cart"><i class="fas fa-shopping-cart cart"></i></a> <!-- Correct Solid Cart Icon -->
+            <span class="cart-quantity">0</span>
+        </span>
+        <span class="cart-total">$0.00</span>
+    </div>
+
+  
+    <!-- Container -->
+    <div class="container">
+        <!--  hadhi patie mta3 Product Image with Zoom on Click -->
+        <div class="zoom-container">
+            <img id="MainImg" src="static/pant7.jpg" alt="Casual pant">
+            <!-- hadhi patie mta3 dowira sghira li fyha naw3 la9mech -->
+            <div id="fabric-circle" class="fabric-circle"> <img src="static\images\tissu-pant.png" alt="Fabric Icon" class="fabric-icon"></div>
+        </div>
+        <!--  hadhi patie mta3 Product Details -->
+        <div class="product-details">
+            <!-- Product Title -->
+            <h1>Casual pant</h1>
+
+            <!--  hadhi patie mta3 Rating and Reviews -->
+            <div class="rating-reviews">
+                <div class="rating">★★★★☆</div>
+                <div class="reviews">(58 ratings)</div>
+                <a href="#" class="search-link">Search this page</a>
+            </div>
+
+            <!-- hadhi patie mta3 Price -->
+            <div class="price">78 DT</div>
+            <p class="tax-info">Inclusive of all taxes</p>
+            <!-- hadhi patie mta3 Size Selection -->
+            <div class="size-selection">
+                <label for="size">Size:</label>
+                <select id="size">
+                    <option>Select</option>
+                    <option>Small</option>
+                    <option>Medium</option>
+                    <option>Large</option>
+                    <option>XL</option>
+                </select>
+            </div>
+
+            <div class="details">
+                <h2>Product details</h2>
+                <p><strong>Material composition:</strong> Cotton Lycra</p>
+                <p><strong>Fit type:</strong> Slim Fit</p>
+                <p><strong>Sleeve type:</strong> Half Sleeve</p>
+                <p><strong>Length:</strong> Standard Length</p>
+            </div>
+
+            <!-- hadhi partie mta3 Color Selection -->
+            <div class="color-selection">
+                <label>Colour: Gray</label>
+                <div class="colors">
+                    <div class="color active" data-color="Gray" data-img="static/pant7.jpg">
+                        <img src="static/pant7.jpg" alt="Gray pant">
+                    </div>
+                    <div class="color" data-color="beige" data-img="static/pant4.jpg">
+                        <img src="static/pant4.jpg" alt="beige pant">
+                    </div>
+                    <div class="color" data-color="dark green" data-img="static/pant2.jpg">
+                        <img src="static/pant2.jpg" alt="dark green pant">
+                    </div>
+                    <div class="color" data-color="Black" data-img="static/pant1.jpg">
+                        <img src="static/pant1.jpg" alt="Black pant">
+                    </div>
+                </div>
+            </div>
+
+            <!--  hadhi Add to Cart Button -->
+            <a href="" class="btn">Add to Cart <i class="fa fa-shopping-cart"></i></a>
+        </div>
+    </div>
+    <!-- hadhi Cart Section -->
+    <div class="cart-container">
+        <h2>Your Cart</h2>
+        <table id="cart-table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Nom du produit</th>
+                    <th>Référence</th>
+                    <th>Quantité</th>
+                    <th>Prix unitaire</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <!-- besh nedi byhom file js -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script> 
+    <script src="{{ url_for('static', filename='cart.js') }}"></script> 
+    <script src="{{ url_for('static', filename='zoom.js') }}"></script>
+    
+
+</body>
+
+</html>
