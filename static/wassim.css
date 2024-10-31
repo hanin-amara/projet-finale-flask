@@ -765,3 +765,27 @@ select {
     background-color: #ffffff;
     width: 300px;
 }
+/* Image Preview Styling */
+.image-preview {
+    margin-top: 20px;
+    margin-left: 187px;
+    width: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    border: 2px dashed #ff5656;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Ensures the image is centered within the preview box */
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: auto;
+}
