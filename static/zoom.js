@@ -3,9 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const zoomImage = document.querySelector("#MainImg");
     const fabricCircle = document.querySelector("#fabric-circle");
     const details = document.querySelector(".details"); // Select product details
-
+    const fabricQualityInfo = document.createElement("div"); // Create a new div for fabric quality
+    const qualityPercentage = 95; // Example quality percentage, you can set this dynamically later
     let zoomLevel = 1; // Initial zoom level
     let detailsVisible = false; // Track if details are visible
+
+    // Set up the fabric quality info div
+    fabricQualityInfo.style.position = "absolute";
+    fabricQualityInfo.style.background = "rgba(255, 255, 255, 0.8)";
+    fabricQualityInfo.style.padding = "5px";
+    fabricQualityInfo.style.borderRadius = "5px";
+    fabricQualityInfo.style.display = "none"; // Initially hidden
+    document.body.appendChild(fabricQualityInfo); // Add to the body
 
     // Handle mouse movement to show fabric details
     zoomContainer.addEventListener('mousemove', function (e) {
@@ -26,13 +35,18 @@ document.addEventListener("DOMContentLoaded", function () {
         if (fabricCircle.style.display === "block") {
             fabricCircle.style.left = e.clientX - 75 + "px"; // Center the circle based on mouse position
             fabricCircle.style.top = e.clientY - 75 + "px";  // Center the circle based on mouse position
+            
+            // Update the position of the fabric quality info
+            fabricQualityInfo.style.left = e.clientX + 10 + "px"; // Position slightly to the right
+            fabricQualityInfo.style.top = e.clientY + 10 + "px";  // Position slightly below
         }
     });
 
-    // Hide the circle when the mouse leaves the image
+    // Hide the circle and quality info when the mouse leaves the image
     zoomContainer.addEventListener('mouseleave', function () {
         zoomImage.style.transform = 'scale(1)';
         fabricCircle.style.display = "none"; // Hide the small circle
+        fabricQualityInfo.style.display = "none"; // Hide fabric quality info
     });
 
     // Left-click to toggle zoom and details
@@ -46,15 +60,16 @@ document.addEventListener("DOMContentLoaded", function () {
             fabricCircle.style.left = e.clientX - 75 + "px"; // Center the circle based on click position
             fabricCircle.style.top = e.clientY - 75 + "px";  // Center the circle based on click position
 
+            // Show the fabric quality info
+            fabricQualityInfo.innerHTML = `${qualityPercentage}% Cotton`; // Update with the fabric quality and percentage
+            fabricQualityInfo.style.display = "block"; // Show the quality info
+
             // Toggle details visibility
             if (!detailsVisible) {
                 details.style.display = "block"; // Show details
                 details.classList.remove('hide'); // Ensure the hide class is removed
                 details.classList.add('show'); // Show details with animation
                 detailsVisible = true; // Set to true after showing
-            } else {
-                // Just keep them visible
-                // You can also reset the position of details here if needed
             }
         }
     });
@@ -65,8 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
         zoomLevel = 1; // Reset zoom level
         zoomImage.style.transform = `scale(${zoomLevel})`;
 
-        // Hide the small circle
+        // Hide the small circle and quality info
         fabricCircle.style.display = "none";
+        fabricQualityInfo.style.display = "none"; // Hide fabric quality info
 
         // Hide details on right-click if visible
         if (detailsVisible) {
@@ -79,8 +95,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-
-
-
-
