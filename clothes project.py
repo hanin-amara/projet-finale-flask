@@ -87,28 +87,73 @@ def upload_file():
 
     return render_template('index.html')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+
+# Image classification model
+train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
+    rescale=1./255,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True
+)
+
+train_generator = train_datagen.flow_from_directory(
+    'static/tissu',
+    target_size=(128, 128), 
+    batch_size=32,
+    class_mode='categorical' 
+)
+
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 3)),
+    tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+    tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+    tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+    tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
+    tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dropout(0.5),
+    tf.keras.layers.Dense(train_generator.num_classes, activation='softmax')  
+])
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+model.fit(train_generator, epochs=10)
+
+def predict_tissu(image_path):
+    img = image.load_img(image_path, target_size=(128, 128))
+    img_array = image.img_to_array(img) / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
+    
+    prediction = model.predict(img_array)
+    class_index = np.argmax(prediction)
+    class_label = list(train_generator.class_indices.keys())
+    
+    return class_label[class_index]
 
 
 @app.route('/cart')
 def cart():
-    return render_template('cart.html')
+    image_path = 'static/images/tessu-chemise-p2.png'
+    tissu_prediction = predict_tissu(image_path)
+    return render_template('cart.html', tissu_prediction=tissu_prediction, image_path=image_path)
 
 @app.route('/p2')
 def p2():
-    return render_template('p2.html')
+    image_path = 'static/images/tisuu-pull.jpg'
+    tissu_prediction = predict_tissu(image_path)
+    return render_template('p2.html', tissu_prediction=tissu_prediction, image_path=image_path)
 
 @app.route('/p3')
 def p3():
-    return render_template('p3.html')
+    image_path = 'static/images/tissu-pant.png'
+    tissu_prediction = predict_tissu(image_path)
+    return render_template('p3.html', tissu_prediction=tissu_prediction, image_path=image_path)
 
 @app.route('/p4')
-def p4():
+def p4():  
     return render_template('p4.html')
-@app.route('/')
-def home():
-    return render_template('index.html')
+
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=9080)  
+    app.run(debug=True, host='0.0.0.0', port=9080)

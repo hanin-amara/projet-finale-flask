@@ -32,8 +32,12 @@
         <div class="zoom-container">
             <img id="MainImg" src="static/pant7.jpg" alt="Casual pant">
             <!-- hadhi patie mta3 dowira sghira li fyha naw3 la9mech -->
-            <div id="fabric-circle" class="fabric-circle"> <img src="static\images\tissu-pant.png" alt="Fabric Icon" class="fabric-icon"></div>
-        </div>
+            <div id="fabric-circle" class="fabric-circle">
+                <img src="{{ image_path }}" alt="Fabric Icon" class="fabric-icon">
+            </div>
+            
+            <p>La prédiction de tissu est : {{ tissu_prediction }}</p>
+                </div>
         <!--  hadhi patie mta3 Product Details -->
         <div class="product-details">
             <!-- Product Title -->
@@ -63,7 +67,7 @@
 
             <div class="details">
                 <h2>Product details</h2>
-                <p><strong>Material composition:</strong> Cotton Lycra</p>
+                <p><strong>Material composition:</strong> denim</p>
                 <p><strong>Fit type:</strong> Slim Fit</p>
                 <p><strong>Sleeve type:</strong> Half Sleeve</p>
                 <p><strong>Length:</strong> Standard Length</p>
